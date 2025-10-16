@@ -1,81 +1,56 @@
-using Microsoft.EntityFrameworkCore;
 using PatientService.Application.DTOs;
 using PatientService.Application.Interfaces;
 using PatientService.Domain.Entities;
-using PatientService.Infrastructure.Data;
+using AutoMapper;
 
 namespace PatientService.Application.Services;
 
 public class PatientService : IPatientService
 {
-    private readonly PatientDbContext _context;
-    public PatientService(PatientDbContext context) => _context = context;
+    private readonly IMapper _mapper;
+    private readonly IPatientRepository _repo;
+    public PatientService(IPatientRepository repo, IMapper mapper)
+    {
+        _repo = repo;
+        _mapper = mapper;
+    }
 
-    public async Task<IEnumerable<PatientDto>> GetAllAsync() =>
-      await _context.Patients
-        .Select(p => new PatientDto
-        {
-            Id = p.Id,
-            FirstName = p.FirstName,
-            LastName = p.LastName,
-            MiddleName = p.MiddleName,
-            DateOfBirth = p.DateOfBirth,
-            IsLinkedToAccount = p.IsLinkedToAccount
-        })
-        .ToListAsync();
+    public async Task<IEnumerable<PatientDto>> GetAllAsync()
+    {
+        var patients = await _repo.GetAllAsync();
+        return _mapper.Map<IEnumerable<PatientDto>>(patients);
+    }
 
     public async Task<PatientDto?> GetByIdAsync(Guid id)
     {
-        var p = await _context.Patients.FindAsync(id);
-        return p == null ? null : new PatientDto
-        {
-            Id = p.Id,
-            FirstName = p.FirstName,
-            LastName = p.LastName,
-            MiddleName = p.MiddleName,
-            DateOfBirth = p.DateOfBirth,
-            IsLinkedToAccount = p.IsLinkedToAccount
-        };
+        var patient = await _repo.GetByIdAsync(id);
+        return _mapper.Map<PatientDto?>(patient);
     }
 
     public async Task<Guid> CreateAsync(PatientDto dto)
     {
-        var patient = new Patient
-        {
-            Id = Guid.NewGuid(),
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            MiddleName = dto.MiddleName,
-            DateOfBirth = dto.DateOfBirth,
-            IsLinkedToAccount = dto.IsLinkedToAccount
-        };
-        _context.Patients.Add(patient);
-        await _context.SaveChangesAsync();
+        var patient = _mapper.Map<Patient>(dto);
+        patient.Id = Guid.NewGuid();
+        await _repo.AddAsync(patient);
         return patient.Id;
     }
 
     public async Task<bool> UpdateAsync(Guid id, PatientDto dto)
     {
-        var patient = await _context.Patients.FindAsync(id);
-        if (patient == null) return false;
+        var existing = await _repo.GetByIdAsync(id);
+        if (existing == null) return false;
 
-        patient.FirstName = dto.FirstName;
-        patient.LastName = dto.LastName;
-        patient.MiddleName = dto.MiddleName;
-        patient.DateOfBirth = dto.DateOfBirth;
-        patient.IsLinkedToAccount = dto.IsLinkedToAccount;
-
-        await _context.SaveChangesAsync();
+        _mapper.Map(dto, existing);
+        await _repo.UpdateAsync(existing);
         return true;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        var patient = await _context.Patients.FindAsync(id);
+        var patient = await _repo.GetByIdAsync(id);
         if (patient == null) return false;
 
-        _context.Patients.Remove(patient);
-        await _context.SaveChangesAsync();
+        await _repo.DeleteAsync(patient);
         return true;
     }
 }
