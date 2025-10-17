@@ -1,4 +1,5 @@
 using PatientService.Application.DTOs;
+using PatientService.Domain.Interfaces;
 using PatientService.Application.Interfaces;
 using PatientService.Domain.Entities;
 using AutoMapper;

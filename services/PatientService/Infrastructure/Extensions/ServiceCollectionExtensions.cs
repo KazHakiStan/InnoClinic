@@ -1,8 +1,9 @@
+using PatientService.Domain.Interfaces;
 using PatientService.Application.Interfaces;
-using PatientService.Application.Mapping;
+using PatientService.Infrastructure.Mapping;
 using PatientService.Infrastructure.Repositories;
 
-namespace PatientService.Presentation.Extensions;
+namespace PatientService.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {

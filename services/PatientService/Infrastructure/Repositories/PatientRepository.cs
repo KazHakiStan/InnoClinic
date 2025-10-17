@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using PatientService.Application.Interfaces;
+using PatientService.Domain.Interfaces;
 using PatientService.Domain.Entities;
 using PatientService.Infrastructure.Data;
 

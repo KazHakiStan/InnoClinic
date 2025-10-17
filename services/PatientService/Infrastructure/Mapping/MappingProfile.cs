@@ -2,7 +2,7 @@ using AutoMapper;
 using PatientService.Application.DTOs;
 using PatientService.Domain.Entities;
 
-namespace PatientService.Application.Mapping;
+namespace PatientService.Infrastructure.Mapping;
 
 public class MappingProfile : Profile
 {

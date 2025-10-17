@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using PatientService.Domain.Entities;
-using PatientService.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using PatientService.Application.DTOs;
 using PatientService.Application.Interfaces;
 
