@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PatientService.Infrastructure.Data;
 
@@ -12,11 +11,9 @@ using PatientService.Infrastructure.Data;
 namespace PatientService.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PatientDbContext))]
-    [Migration("20251017114757_InitialMigration")]
-    partial class InitialMigration
+    partial class PatientDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
