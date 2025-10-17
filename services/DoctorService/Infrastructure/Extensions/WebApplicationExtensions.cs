@@ -1,4 +1,4 @@
-namespace DoctorService.Presentation.Extensions;
+namespace DoctorService.Infrastructure.Extensions;
 
 public static class WebApplicationExtensions
 {

@@ -1,6 +1,6 @@
 using MediatR;
 using AutoMapper;
-using DoctorService.Application.Interfaces;
+using DoctorService.Domain.Interfaces;
 using DoctorService.Domain.Entities;
 
 namespace DoctorService.Application.CQRS.Commands.CreateDoctor;

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using DoctorService.Application.Interfaces;
+using DoctorService.Domain.Interfaces;
 using DoctorService.Domain.Entities;
 using DoctorService.Infrastructure.Data;
 

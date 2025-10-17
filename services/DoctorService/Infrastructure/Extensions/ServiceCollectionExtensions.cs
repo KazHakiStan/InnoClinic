@@ -1,9 +1,9 @@
 using MediatR;
-using DoctorService.Application.Interfaces;
-using DoctorService.Application.Mapping;
+using DoctorService.Domain.Interfaces;
+using DoctorService.Infrastructure.Mapping;
 using DoctorService.Infrastructure.Repositories;
 
-namespace DoctorService.Presentation.Extensions;
+namespace DoctorService.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {

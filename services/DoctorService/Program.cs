@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using DoctorService.Infrastructure.Data;
-using DoctorService.Presentation.Extensions;
+using DoctorService.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

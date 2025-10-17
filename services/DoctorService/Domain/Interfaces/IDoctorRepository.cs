@@ -1,6 +1,6 @@
 using DoctorService.Domain.Entities;
 
-namespace DoctorService.Application.Interfaces;
+namespace DoctorService.Domain.Interfaces;
 
 public interface IDoctorRepository
 {
@@ -10,3 +10,4 @@ public interface IDoctorRepository
     Task UpdateAsync(Doctor doctor);
     Task DeleteAsync(Doctor doctor);
 }
+
