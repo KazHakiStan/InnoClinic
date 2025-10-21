@@ -14,7 +14,7 @@ public class AuthValidationMiddleware
     public async Task InvokeAsync(HttpContext context, AuthClientService authClient)
     {
         var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
-        if (authHeader is null || !authHeader.StartsWith("Bearer"))
+        if (authHeader is null || !authHeader.StartsWith("Bearer "))
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
             return;
