@@ -1,4 +1,5 @@
-using ReceptionistService.Application.Extensions;
+using ReceptionistService.DataAccess.Extensions;
+using ReceptionistService.Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,8 @@
 using ReceptionistService.Domain.Entities;
-using ReceptionistService.Application.Interfaces;
-using ReceptionistService.Infrastructure.Repositories;
+using ReceptionistService.BusinessLogic.Interfaces;
+using ReceptionistService.DataAccess.Repositories;
 
-namespace ReceptionistService.Application.Services;
+namespace ReceptionistService.BusinessLogic.Services;
 
 public class ReceptionistService : IReceptionistService
 {

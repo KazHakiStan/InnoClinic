@@ -1,6 +1,6 @@
 using ReceptionistService.Domain.Entities;
 
-namespace ReceptionistService.Application.Interfaces;
+namespace ReceptionistService.BusinessLogic.Interfaces;
 
 public interface IReceptionistService
 {

@@ -1,4 +1,4 @@
-namespace ReceptionistService.Application.Extensions;
+namespace ReceptionistService.Presentation.Extensions;
 
 public static class WebApplicationExtensions
 {
@@ -17,4 +17,5 @@ public static class WebApplicationExtensions
         return app;
     }
 }
+
 

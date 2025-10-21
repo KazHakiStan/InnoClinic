@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ReceptionistService.Domain.Entities;
-using ReceptionistService.Application.Interfaces;
+using ReceptionistService.BusinessLogic.Interfaces;
 
 namespace ReceptionistService.Presentation.Controllers;
 

@@ -1,8 +1,8 @@
 using Dapper;
 using ReceptionistService.Domain.Entities;
-using ReceptionistService.Infrastructure.Data;
+using ReceptionistService.DataAccess.Data;
 
-namespace ReceptionistService.Infrastructure.Repositories;
+namespace ReceptionistService.DataAccess.Repositories;
 
 public class ReceptionistRepository
 {
