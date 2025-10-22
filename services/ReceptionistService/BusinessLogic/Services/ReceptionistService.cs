@@ -1,14 +1,14 @@
 using ReceptionistService.Domain.Entities;
 using ReceptionistService.BusinessLogic.Interfaces;
-using ReceptionistService.DataAccess.Repositories;
+using ReceptionistService.Domain.Interfaces;
 
 namespace ReceptionistService.BusinessLogic.Services;
 
 public class ReceptionistService : IReceptionistService
 {
-    private readonly ReceptionistRepository _repo;
+    private readonly IReceptionistRepository _repo;
 
-    public ReceptionistService(ReceptionistRepository repo)
+    public ReceptionistService(IReceptionistRepository repo)
     {
         _repo = repo;
     }

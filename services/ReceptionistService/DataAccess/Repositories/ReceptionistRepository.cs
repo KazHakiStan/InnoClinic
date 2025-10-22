@@ -1,10 +1,11 @@
 using Dapper;
 using ReceptionistService.Domain.Entities;
 using ReceptionistService.DataAccess.Data;
+using ReceptionistService.Domain.Interfaces;
 
 namespace ReceptionistService.DataAccess.Repositories;
 
-public class ReceptionistRepository
+public class ReceptionistRepository : IReceptionistRepository
 {
     private readonly DapperContext _context;
 
