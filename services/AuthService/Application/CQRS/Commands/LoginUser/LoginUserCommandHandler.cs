@@ -1,6 +1,6 @@
 using MediatR;
 using AuthService.Domain.Interfaces;
-using AuthService.Application.Interfaces;
+using AuthService.Infrastructure.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
 

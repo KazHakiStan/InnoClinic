@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using AuthService.Domain.Entities;
-using AuthService.Application.Interfaces;
+using AuthService.Infrastructure.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AuthService.Infrastructure.Services;

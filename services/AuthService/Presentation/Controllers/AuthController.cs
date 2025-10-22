@@ -3,7 +3,7 @@ using MediatR;
 using AuthService.Application.CQRS.Commands.RegisterUser;
 using AuthService.Application.CQRS.Commands.LoginUser;
 using AuthService.Application.DTOs;
-using AuthService.Application.Interfaces;
+using AuthService.Infrastructure.Interfaces;
 using System.Security.Claims;
 
 namespace AuthService.Presentation.Controllers;
