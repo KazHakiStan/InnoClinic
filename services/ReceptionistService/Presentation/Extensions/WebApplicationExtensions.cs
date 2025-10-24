@@ -1,6 +1,4 @@
-using DoctorService.Infrastructure.Middleware;
-
-namespace DoctorService.Infrastructure.Extensions;
+namespace ReceptionistService.Presentation.Extensions;
 
 public static class WebApplicationExtensions
 {
@@ -13,10 +11,11 @@ public static class WebApplicationExtensions
         }
 
         app.UseHttpsRedirection();
-        app.UseMiddleware<AuthValidationMiddleware>();
         app.UseAuthorization();
         app.MapControllers();
 
         return app;
     }
 }
+
+

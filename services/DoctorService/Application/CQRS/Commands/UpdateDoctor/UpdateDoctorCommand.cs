@@ -8,6 +8,7 @@ public record UpdateDoctorCommand(
     string LastName,
     string? MiddleName,
     DateTime DateOfBirth,
+    Guid AccountId,
     int CareerStartYear,
     string Status
     ) : IRequest;
