@@ -1,4 +1,4 @@
-// using DoctorService.Infrastructure.Middleware;
+using ResultsService.Infrastructure.Middleware;
 
 namespace ResultsService.Infrastructure.Extensions;
 
@@ -13,7 +13,7 @@ public static class WebApplicationExtensions
         }
 
         app.UseHttpsRedirection();
-        // app.UseMiddleware<AuthValidationMiddleware>();
+        app.UseMiddleware<AuthValidationMiddleware>();
         app.UseAuthorization();
         app.MapControllers();
 
