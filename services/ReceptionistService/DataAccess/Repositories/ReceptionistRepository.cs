@@ -31,8 +31,8 @@ public class ReceptionistRepository : IReceptionistRepository
     {
         using var connection = _context.CreateConnection();
         var sql = """
-      INSERT INTO Receptionists (Id, FirstName, LastName, MiddleName)
-      VALUES (@Id, @FirstName, @LastName, @MiddleName)
+      INSERT INTO Receptionists (Id, FirstName, LastName, MiddleName, AccountId, OfficeId)
+      VALUES (@Id, @FirstName, @LastName, @MiddleName, @AccountId, @OfficeId)
       """;
         await connection.ExecuteAsync(sql, r);
     }
@@ -42,7 +42,7 @@ public class ReceptionistRepository : IReceptionistRepository
         using var connection = _context.CreateConnection();
         var sql = """
       UPDATE Receptionists
-      SET FirstName=@FirstName, LastName=@LastName, MiddleName=@MiddleName
+      SET FirstName=@FirstName, LastName=@LastName, MiddleName=@MiddleName, AccountId=@AccountId, OfficeId=@OfficeId
       WHERE Id=@Id
       """;
         await connection.ExecuteAsync(sql, r);
