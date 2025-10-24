@@ -2,6 +2,7 @@ using PatientService.Domain.Interfaces;
 using PatientService.Application.Interfaces;
 using PatientService.Infrastructure.Mapping;
 using PatientService.Infrastructure.Repositories;
+using Microsoft.OpenApi.Models;
 
 namespace PatientService.Infrastructure.Extensions;
 
@@ -11,8 +12,34 @@ public static class ServiceCollectionExtensions
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new() { Title = "DoctorService", Version = "v1" });
 
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "Please enter a valid token (Bearer {token})",
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+              {
+                new OpenApiSecurityScheme
+                {
+                  Reference = new OpenApiReference
+                  {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                  }
+                },
+                Array.Empty<string>()
+              }
+            });
+        });
         return services;
     }
 
