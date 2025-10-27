@@ -1,3 +1,5 @@
+using AccountService.Infrastructure.Middleware;
+
 namespace AccountService.Infrastructure.Extensions;
 
 public static class WebApplicationExtensions
@@ -11,6 +13,7 @@ public static class WebApplicationExtensions
         }
 
         app.UseHttpsRedirection();
+        app.UseMiddleware<AuthValidationMiddleware>();
         app.UseAuthorization();
         app.MapControllers();
 
