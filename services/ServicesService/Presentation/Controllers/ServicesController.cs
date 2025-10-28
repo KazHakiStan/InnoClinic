@@ -6,7 +6,7 @@ using ServicesService.Application.CQRS.Queries.GetServiceById;
 using ServicesService.Application.CQRS.Commands.UpdateService;
 using ServicesService.Application.CQRS.Commands.DeleteService;
 
-namespace AccountService.Presentation.Controllers;
+namespace ServicesService.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
