@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using DoctorService.Infrastructure.Data;
 using DoctorService.Infrastructure.Extensions;
 using DoctorService.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,5 +24,11 @@ builder.Services.AddMediatRServices();
 var app = builder.Build();
 
 app.UseApiPipeline();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<DoctorDbContext>();
+    context.Database.Migrate();
+}
 
 app.Run();
