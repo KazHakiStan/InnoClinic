@@ -24,4 +24,10 @@ var app = builder.Build();
 
 app.UseApiPipeline();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppointmentDbContext>();
+    context.Database.Migrate();
+}
+
 app.Run();

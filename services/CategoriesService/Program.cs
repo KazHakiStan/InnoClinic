@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using CategoryService.Infrastructure.Data;
 using CategoryService.Infrastructure.Extensions;
 using CategoryService.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,5 +24,11 @@ builder.Services.AddMediatRServices();
 var app = builder.Build();
 
 app.UseApiPipeline();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<CategoryDbContext>();
+    context.Database.Migrate();
+}
 
 app.Run();

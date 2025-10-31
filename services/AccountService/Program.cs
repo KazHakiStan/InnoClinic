@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using AccountService.Infrastructure.Data;
 using AccountService.Infrastructure.Extensions;
 using AccountService.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,5 +25,11 @@ builder.Services.AddMediatRServices();
 var app = builder.Build();
 
 app.UseApiPipeline();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AccountDbContext>();
+    context.Database.Migrate();
+}
 
 app.Run();

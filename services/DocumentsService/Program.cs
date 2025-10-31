@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using DocumentsService.Infrastructure.Data;
 using DocumentsService.Infrastructure.Extensions;
 using DocumentsService.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,5 +25,11 @@ builder.Services.AddMediatRServices();
 var app = builder.Build();
 
 app.UseApiPipeline();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<DocumentDbContext>();
+    context.Database.Migrate();
+}
 
 app.Run();
