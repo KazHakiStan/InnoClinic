@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image:  mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "MyPassword12345!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./scripts:/scripts
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "MyPassword12345!" -d master -Q "SELECT 1" || exit 1
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 3s
+
+  auth-service:
+    build: .
+    ports:
+      - "5184:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_AuthDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - Jwt__Key=q5hTNs7DFIYcx7PbIae6BLInYyFj+zBPwRwQnS5jQbF7H7kncV0X+ZcT6LJvzzQzI5ue/4CkXyAQ3jv4W5EyEw==
+      - Jwt__Issuer=InnoClinic.AuthService
+      - Jwt__Audience=InnoClinic.Services
+    depends_on:
+      - sqlserver
+
+volumes:
+  sqlserver_data:

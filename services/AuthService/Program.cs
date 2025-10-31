@@ -19,4 +19,10 @@ var app = builder.Build();
 
 app.UseApiPipeline();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+    context.Database.Migrate();
+}
+
 app.Run();
