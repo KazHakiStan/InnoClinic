@@ -145,15 +145,16 @@ services:
       - sqlserver-specialization-data:/var/opt/mssql
 
   auth-service:
-    build: 
-      context: .
-      dockerfile: services/AuthService/Dockerfile
+    image: InnoClinic/auth-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/AuthService/Dockerfile
     ports:
       - "5184:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_AuthDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-auth;Database=InnoClinic_AuthDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
       - Jwt__Key=q5hTNs7DFIYcx7PbIae6BLInYyFj+zBPwRwQnS5jQbF7H7kncV0X+ZcT6LJvzzQzI5ue/4CkXyAQ3jv4W5EyEw==
       - Jwt__Issuer=InnoClinic.AuthService
       - Jwt__Audience=InnoClinic.Services
@@ -161,136 +162,146 @@ services:
       - sqlserver-auth
 
   account-service:
-    build: 
-      context: .
-      dockerfile: services/AccountService/Dockerfile
+    image: InnoClinic/accounts-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/AccountService/Dockerfile
     ports:
       - "5185:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_AccountDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-account;Database=InnoClinic_AccountDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-account
 
 
   appointment-service:
-    build: 
-      context: .
-      dockerfile: services/AppointmentsService/Dockerfile
+    image: InnoClinic/appointments-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/AppointmentsService/Dockerfile
     ports:
       - "5186:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_AppointmentDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-appointment;Database=InnoClinic_AppointmentDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-appointment
 
   categories-service:
-    build: 
-      context: .
-      dockerfile: services/CategoriesService/Dockerfile
+    image: InnoClinic/categories-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/CategoriesService/Dockerfile
     ports:
       - "5187:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_CategoryDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-categories;Database=InnoClinic_CategoryDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-categories
 
   doctor-service:
-    build: 
-      context: .
-      dockerfile: services/DoctorService/Dockerfile
+    image: InnoClinic/doctors-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/DoctorService/Dockerfile
     ports:
       - "5188:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_DoctorDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-doctor;Database=InnoClinic_DoctorDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-doctor
 
   documents-service:
-    build: 
-      context: .
-      dockerfile: services/DocumentsService/Dockerfile
+    image: InnoClinic/documents-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/DocumentsService/Dockerfile
     ports:
       - "5196:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_DocumentDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-documents;Database=InnoClinic_DocumentDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-documents
 
   office-service:
-    build: 
-      context: .
-      dockerfile: services/OfficesService/Dockerfile
+    image: InnoClinic/offices-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/OfficesService/Dockerfile
     ports:
       - "5189:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_OfficeDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-office;Database=InnoClinic_OfficeDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-office
 
   patient-service:
-    build: 
-      context: .
-      dockerfile: services/PatientService/Dockerfile
+    image: InnoClinic/patients-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/PatientService/Dockerfile
     ports:
       - "5190:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_PatientDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-patient;Database=InnoClinic_PatientDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-patient
 
   photo-service:
-    build: 
-      context: .
-      dockerfile: services/PhotoService/Dockerfile
+    image: InnoClinic/photos-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/PhotoService/Dockerfile
     ports:
       - "5191:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_PhotoDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-photo;Database=InnoClinic_PhotoDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-photo
 
   receptionist-service:
-    build: 
-      context: .
-      dockerfile: services/ReceptionistService/Dockerfile
+    image: InnoClinic/receptionists-service
+    # build:
+    #   context: .
+    #   dockerfile: services/ReceptionistService/Dockerfile
     ports:
       - "5192:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_ReceptionistDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-receptionist;Database=InnoClinic_ReceptionistDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-receptionist
 
   results-service:
-    build: 
-      context: .
-      dockerfile: services/ResultsService/Dockerfile
+    image: InnoClinic/results-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/ResultsService/Dockerfile
     ports:
       - "5193:80"
     secrets:
@@ -300,35 +311,37 @@ services:
       ASPNETCORE_URLS: "http://+:80"
       MongoSettings__DatabaseName: "InnoClinic_ResultsDb"
       MongoSettings__ConnectionString: /run/secrets/mongodb_uri
-      AuthService__BaseUrl: "http://localhost:5184"
-    depends_on:
-      - sqlserver-results
+      AuthService__BaseUrl: "http://auth-service"
+    # depends_on:
+    #   - sqlserver-results
 
   services-service:
-    build: 
-      context: .
-      dockerfile: services/ServicesService/Dockerfile
+    image: InnoClinic/services-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/ServicesService/Dockerfile
     ports:
       - "5194:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_ServicesDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-services;Database=InnoClinic_ServicesDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-services
 
   specialization-service:
-    build: 
-      context: .
-      dockerfile: services/SpecializationsService/Dockerfile
+    image: InnoClinic/specializations-service
+    # build: 
+    #   context: .
+    #   dockerfile: services/SpecializationsService/Dockerfile
     ports:
       - "5195:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=InnoClinic_SpecsDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
-      - AuthService__BaseUrl=http://localhost:5184
+      - ConnectionStrings__DefaultConnection=Server=sqlserver-specialization;Database=InnoClinic_SpecsDb;User Id=sa;Password=MyPassword12345!;TrustServerCertificate=true;
+      - AuthService__BaseUrl=http://auth-service
     depends_on:
       - sqlserver-specialization
 

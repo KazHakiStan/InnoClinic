@@ -10,7 +10,18 @@ public class MongoContext
 
     public MongoContext(IOptions<MongoSettings> settings)
     {
-        var config = MongoClientSettings.FromConnectionString(settings.Value.ConnectionString);
+        MongoClientSettings config;
+        var connectionStringPath = settings.Value.ConnectionString;
+
+        if (File.Exists(connectionStringPath))
+        {
+            var secretValue = File.ReadAllText(connectionStringPath).Trim();
+            config = MongoClientSettings.FromConnectionString(secretValue);
+        }
+        else
+        {
+            config = MongoClientSettings.FromConnectionString(settings.Value.ConnectionString);
+        }
         config.ServerApi = new ServerApi(ServerApiVersion.V1);
         var client = new MongoClient(config);
         _database = client.GetDatabase(settings.Value.DatabaseName);
